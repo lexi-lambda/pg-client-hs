@@ -36,6 +36,7 @@ library
                      , mtl
                      , transformers-base >= 0.4
                      , monad-control >= 1.0
+                     , exceptions >= 0.9
                      , resource-pool
 
                      , text >= 1.2

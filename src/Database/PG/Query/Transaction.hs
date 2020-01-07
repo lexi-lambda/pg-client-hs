@@ -40,6 +40,7 @@ import           Database.PG.Query.Class
 import           Database.PG.Query.Connection
 
 import           Control.Monad.Base
+import           Control.Monad.Catch
 import           Control.Monad.Except
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Control
@@ -82,7 +83,7 @@ type Tx = TxE PGTxErr
 newtype TxE e a
   = TxE { txHandler :: ReaderT PGConn (ExceptT e IO) a }
   deriving ( Functor, Applicative, Monad, MonadError e, MonadIO, MonadReader PGConn
-           , MonadBase IO, MonadBaseControl IO )
+           , MonadBase IO, MonadBaseControl IO, MonadThrow, MonadCatch, MonadMask )
 
 {-# INLINE catchE #-}
 catchE :: (e -> e') -> TxE e a -> TxE e' a
